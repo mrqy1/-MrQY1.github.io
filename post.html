@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<article class="post">
+		<h2>{{ data['post']['title'] }}</h2>
+		<p>{{ data['post']['content'] }}</p>
+	</article>
+{% endblock %}
