@@ -1,0 +1,39 @@
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+# 博客文章
+POSTS = [{'title': 'Post Title 1', 'content': 'Post content 1'}, 
+         {'title': 'Post Title 2', 'content': 'Post content 2'}, 
+         {'title': 'Post Title 3', 'content': 'Post content 3'},
+         {'title': 'Post Title 4', 'content': 'Post content 4'},
+         {'title': 'Post Title 5', 'content': 'Post content 5'},
+         {'title': 'Post Title 6', 'content': 'Post content 6'},
+         {'title': 'Post Title 7', 'content': 'Post content 7'},
+         {'title': 'Post Title 8', 'content': 'Post content 8'},
+         {'title': 'Post Title 9', 'content': 'Post content 9'},
+         {'title': 'Post Title 10', 'content': 'Post content 10'}]
+
+@app.route('/')
+def home():
+    data = {'title': 'Home', 'posts': POSTS}
+    return render_template('home.html', data=data)
+
+@app.route('/about')
+def about():
+    data = {'title': 'About', 'content': 'This is an about page.'}
+    return render_template('about.html', data=data)
+
+@app.route('/contact')
+def contact():
+    data = {'title': 'Contact', 'content': 'This is a contact page.'}
+    return render_template('contact.html', data=data)
+
+@app.route('/post/<int:index>')
+def post(index):
+    try:
+        post = POSTS[index]
+        data = {'title': post['title'], 'post': post}
+        return render_template('post.html', data=data)
+    except IndexError:
+        return 'Post not found', 404
